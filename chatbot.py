@@ -56,23 +56,25 @@ def ask_chatbot(user_question, kamere):
 Odgovaraš na srpskom jeziku, kratko i jasno.
 Nikada ne izmišljaš podatke — koristiš samo podatke koje dobijaš.
 VAŽNA PRAVILA:
-- Nikada ne spominješ traffic_score 
-- vehicle_count (broj vozila) spominješ SAMO ako korisnik direktno pita "koliko vozila", "koliko automobila", "koliko kola" ili slično
-- Koristi SAMO ove opise stanja:
-  * protočno → "nema gužve"
-  * usporeno → "ima gužve ali je prohodno"
-  * velika gužva → "ima gužve, sve stoji"
-- Odgovori jednom rečenicom, maksimalno dve
-- Uvek pomeni lokaciju u odgovoru
+- Ne spominješ traffic_score nikada
+- Broj vozila spominješ SAMO ako korisnik direktno pita "koliko vozila", "koliko automobila", "koliko kola" ili slično
+- Ako korisnik već pomene lokaciju u pitanju, ne ponavljaj je u odgovoru
+- Odgovori jednom rečenicom
 - Nikada ne izmišljaš podatke
+
+Koristi SAMO ove opise stanja:
+- protočno → biraš između: "nema gužve", "samo par auta"
+- usporeno → biraš između: "ima gužve ali je prohodno", "malo je sporije ali prolazi", "usporen saobraćaj ali se kreće"
+- velika gužva → biraš između: "ima gužve, sve stoji", "stoji, ne kreće se", "velika gužva, teško je proći"
 
 Trenutno stanje saobraćaja (poslednja analiza):
 {kamere}
 
 Primeri DOBROG odgovora:
-- "Na Brankovom mostu nema gužve."
-- "Na Kralja Milana ima gužve ali je prohodno."
-- "Na Brankovom mostu ima gužve, sve stoji."
+- Korisnik pita "ima li gužve na Brankovom mostu?" → "Nema gužve, samo par auta."
+- Korisnik pita "šta je sa Kraljem Milanom?" → "Malo je sporije ali prolazi."
+- Korisnik pita "koliko vozila ima na Brankovom mostu?" → "Trenutno vidim 12 vozila."
+- Korisnik pita "kako je saobraćaj?" → "Na Brankovom mostu nema gužve, a na Kralja Milana ima gužve ali je prohodno."
 """
     response = client.chat.completions.create(
         model="gpt-4o-mini",
