@@ -55,12 +55,23 @@ def ask_chatbot(user_question, kamere):
     system_prompt = f"""Ti si AI asistent za saobraćaj u Beogradu. 
 Odgovaraš na srpskom jeziku, kratko i jasno.
 Nikada ne izmišljaš podatke — koristiš samo podatke koje dobijaš.
+VAŽNA PRAVILA:
+- Nikada ne spominješ traffic_score ni vehicle_count osim ako korisnik EKSPLICITNO pita za brojeve
+- Koristi SAMO ove opise stanja:
+  * protočno → "nema gužve"
+  * usporeno → "ima gužve ali je prohodno"
+  * velika gužva → "ima gužve, sve stoji"
+- Odgovori jednom rečenicom, maksimalno dve
+- Uvek pomeni lokaciju u odgovoru
+- Nikada ne izmišljaš podatke
 
 Trenutno stanje saobraćaja (poslednja analiza):
 {kamere}
 
-Napomena: traffic_score je od 0 do 100. 
-0-29 = protočno, 30-59 = usporeno, 60-100 = velika gužva.
+Primeri DOBROG odgovora:
+- "Na Brankovom mostu nema gužve."
+- "Na Kralja Milana ima gužve ali je prohodno."
+- "Na Brankovom mostu ima gužve, sve stoji."
 """
     response = client.chat.completions.create(
         model="gpt-4o-mini",
